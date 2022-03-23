@@ -34,15 +34,30 @@ def register(request):
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
 
-        myuser = User.objects.create_user(username, email, pass1)
-        myuser.first_name = fname
-        myuser.last_name = lname
+        if pass1 == pass2:
+            if User.objects.filter(username=username).exists():
+                messages.success(request, "Username is taken")
+                return render(request, 'register.html', {'fname': fname,
+                                                         'lname': lname,
+                                                         'email': email,
+                                                         'pass1': pass1, })
+            elif User.objects.filter(email=email).exists():
+                messages.success(request, "Email is taken")
+                return render(request, 'register.html', {'username': username,
+                                                         'fname': fname,
+                                                         'lname': lname,
+                                                         'pass1': pass1, })
+            else:
+                myuser = User.objects.create_user(username, email, pass1)
+                myuser.first_name = fname
+                myuser.last_name = lname
 
-        myuser.save()
-
-        messages.success(request, "You have been successfully registered")
-
-        return redirect('login')
+                myuser.save()
+                messages.success(
+                    request, "You have been successfully registered")
+                return redirect('login')
+        else:
+            messages.success(request, "Password not matching")
 
     return render(request, 'register.html')
 
