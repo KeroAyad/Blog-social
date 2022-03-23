@@ -1,0 +1,30 @@
+{% block navbar %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand mb-0 h1" href="{%url 'home'%}">Blog</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mynavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="javascript:void(0)">Link</a>
+        </li>
+      </ul>
+
+      {% if user.is_authenticated %}
+
+      <span class="navbar-text me-3"> {{request.user.username}} </span>
+      <a class="btn btn-secondary" href="{%url 'logout'%}"> Logout </a>
+      {%else%}
+      <a class="btn btn-secondary" href="{%url 'login'%}"> Login </a>
+      {%endif%}
+    </div>
+  </div>
+</nav>
+{%endblock navbar%}
