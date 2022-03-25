@@ -14,7 +14,7 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            name = user.first_name
+            #name = user.first_name
             return redirect('home')
 
         else:
@@ -66,3 +66,10 @@ def logout(request):
     auth_logout(request)
     messages.success(request, "You Logged Out!")
     return redirect('login')
+
+
+def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    else:
+        return render(request, 'profile.html', {})

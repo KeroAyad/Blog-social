@@ -1,0 +1,32 @@
+{% extends "base.html" %} {%load static%} {% block content %}
+<h2>{{user.username}}</h2>
+<div class="container d-flex ">
+
+<form class="form" action="{%url 'profile'%}">
+<h3 class="mb-2">update profile<h3>
+{% csrf_token %}
+<input
+          type="text"
+          class="form-control mb-2"
+          placeholder="{{user.first_name}}"
+          name="fname"
+          id="fname"
+        />
+<input
+          type="text"
+          class="form-control mb-2"
+          placeholder="{{user.last_name}}"
+          name="lname"
+          id="lname"
+        />
+<input
+          type="text"
+          class="form-control mb-2"
+          placeholder="{{user.profile.bio}}"
+          name="bio"
+          id="bio"
+        />
+<button type="submit" class="btn btn-secondary">Update</button>
+</form>
+</div>
+{% endblock %}
