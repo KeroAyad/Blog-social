@@ -1,8 +1,8 @@
 {% extends "base.html" %} {%load static%} {% block content %}
-<h2>{{user.username}}</h2>
-<div class="container d-flex ">
+<h2>{{user.username}} - {{user.id}}</h2>
+<div class="class="d-flex flex-column" ">
 
-<form class="form" action="{%url 'profile'%}">
+<form class=" m-5 w-50 w-sm-100" action="{%url 'profile'%}" method="post" style = "border: 1px solid green">
 <h3 class="mb-2">update profile<h3>
 {% csrf_token %}
 <input
@@ -26,7 +26,11 @@
           name="bio"
           id="bio"
         />
+      
 <button type="submit" class="btn btn-secondary">Update</button>
-</form>
+</form> 
+<a href="{%url 'deleteProfile'%}" class="btn btn-danger"">Delete Profile</a>
+
 </div>
+
 {% endblock %}

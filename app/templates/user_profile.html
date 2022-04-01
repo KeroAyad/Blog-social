@@ -1,0 +1,89 @@
+{% extends "base.html" %} {%load static%} {% block content %}
+<!-- prettier-ignore -->
+{%if request.user.id == user.user_id%}
+<div class="mw-100 d-flex flex-column flex-md-row p-0" id="myDIV">
+  <div class="px-5 mw-100 bg-secondary text-white">
+    <h1>{{user}}</h1>
+    following
+    <ul>
+      {% for following in user.follows.all %}
+      <li>{{ following }}</li>
+      {% endfor %}
+    </ul>
+    followed_by
+    <ul>
+      {% for follower in user.followed_by.all %}
+      <li>{{ follower }}</li>
+      {% endfor %}
+    </ul>
+    <button class="btn btn-dark mb-3">
+      <a href="{%url 'profile'%}" style="text-decoration: none; color: white"
+        >Edit your Profile</a
+      >
+    </button>
+  </div>
+  <div class="mx-md-3 mx-lg-5 m-2 p-4 px-lg-5">
+    {% for post in posts %}
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-text text-muted h6">
+          <a href="{%url 'user_profile' post.author.id %}"
+            >{{ post.author.profile.user }}</a
+          >
+          | {{ post.created_on}}
+        </p>
+        <p class="card-text">{{post.body|slice:":200" }}</p>
+        <a href="{% url 'post_details' post.slug %}" class="btn btn-dark"
+          >Read More &rarr;</a
+        >
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{%else%}
+
+<div class="mw-100 d-flex flex-column flex-md-row p-0" id="myDIV">
+  <div class="px-5 mw-100 bg-secondary text-white">
+    <h1>{{user}}</h1>
+    following
+    <ul>
+      {% for following in user.follows.all %}
+      <li>{{ following }}</li>
+      {% endfor %}
+    </ul>
+    followed_by
+    <ul>
+      {% for follower in user.followed_by.all %}
+      <li>{{ follower }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="mx-md-3 mx-lg-5 m-2 p-4 px-lg-5">
+    {% for post in posts %}
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-text text-muted h6">
+          <a href="{%url 'user_profile' post.author.id %}"
+            >{{ post.author.profile.user }}</a
+          >
+          | {{ post.created_on}}
+        </p>
+        <p class="card-text">{{post.body|slice:":200" }}</p>
+        <a href="{% url 'post_details' post.slug %}" class="btn btn-dark"
+          >Read More &rarr;</a
+        >
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<script>
+  var element = document.getElementById("myDIV");
+  if (element.offsetHeight <= 600) {
+    element.classList.add("vh-100");
+  }
+</script>
+{%endif%} {% endblock content %}
