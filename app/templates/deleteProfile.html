@@ -1,17 +1,22 @@
 {% extends "base.html" %} {%load static%} {% block content %}
-<h2>{{user.username}} - {{user.id}}</h2>
-<div style="display: flex;
-  justify-content: center;
-  align-items: center;
+<!--<h2>{{user.username}} - {{user.id}}</h2>-->
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+  "
+>
+  <div class="">
+    <h1 class="mb-2">Delete profile</h1>
+    <h4>Are you sure you want to delete your profile?</h4>
+    <form action="{%url 'deleteProfile'%}" method="post">
+      {% csrf_token %}
 
-  ">
-
-<form action="{%url 'deleteProfile'%}" method="post">
-<h3 class="mb-2">Delete profile<h3>
-{% csrf_token %}
-<h4>Are you sure you want to delete your profile?</h3>
-<a href="{%url 'profile'%}"  class="btn btn-success">Go back</a>
-<button type="submit" class="btn btn-danger">Delete</button>
-</form> 
+      <a href="{%url 'profile'%}" class="btn btn-success my-2">Go back</a>
+      <button type="submit" class="btn btn-danger my-2">Delete</button>
+    </form>
+  </div>
 </div>
 {% endblock %}
