@@ -1,23 +1,67 @@
 {% extends "base.html" %} {%load static%} {% block content %}
 
-<div class="d-flex p-4 justify-content-center">
+<div class="d-flex px-4 pt-4 justify-content-center">
   <div class="col-lg-7 mx-sm-5 px-sm-5">
     <!-- Blog Entries Column -->
+    <div class="form card p-2 mb-4">
+      <form class="form" action="{%url 'create_post'%}" method="post">
+        <h3 class="mb-2">Write a post</h3>
+        {% csrf_token %}
+        <div class="mb-2">
+          <label class="form-label" for="">Title</label>
+
+          <input
+            type="text"
+            class="form-control mb-2"
+            placeholder="Title"
+            name="title"
+          />
+        </div>
+        <!--<div class="mb-2">
+          <input
+            name="author"
+            type="hidden"
+            class="form-control mb-2"
+            value="{{user.username}}"
+          />
+        </div>-->
+
+        <div class="mb-3">
+          <label class="form-label" for="fname">Body</label>
+          <textarea
+            type="text"
+            class="form-control mb-2"
+            rows="5"
+            placeholder="Write your post here, {{user.username}}!"
+            name="body"
+            id="body"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <select id="status" name="status">
+            <option value="0">Draft</option>
+            <option value="1">Publish</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-dark px-4 me-2">Post</button>
+      </form>
+    </div>
 
     {% for post in posts %} {% if post.status %}
     <div class="card mb-4">
       <div class="card-body">
         <h2 class="card-title">{{ post.title }}</h2>
         <p class="card-text text-muted h6">
-          <a href="{%url 'user_profile' post.author.id %}"
+          <a href="{% url 'user_profile' post.author.id %}"
             >{{ post.author.profile.user }}</a
           >
           | {{ post.created_on}}
         </p>
         <p class="card-text">{{post.body|slice:":200" }}</p>
-        <a href="{% url 'post_details' post.slug %}" class="btn btn-dark"
-          >Read More &rarr;</a
-        >
+        <a href="{{ post.get_absolute_url }}" class="btn btn-dark">
+          Read More &rarr;
+        </a>
       </div>
     </div>
     {%endif%} {% endfor %}

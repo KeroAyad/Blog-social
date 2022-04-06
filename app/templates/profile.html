@@ -1,16 +1,31 @@
 {% extends "base.html" %} {%load static%} {% block content %}
 <h2>{{user.username}} - {{user.id}}</h2>
 <div class="d-flex p-4 justify-content-center">
-<div class="col-lg-7 col-10"><form class="" action="{%url 'profile'%}" method="post" >
-<h3 class="mb-2">update profile<h3>
+<div class="form col-lg-7 col-10"><form class="form" action="{%url 'profile'%}" method="post" >
+<h3 class="mb-2">update profile</h3>
+<div class="mb-2"><label class="form-label" for="fname">Username</label>
+
+  <input
+            type="text"
+            class="form-control mb-2"
+            placeholder="{{user.username}}"
+            
+            disabled readonly
+  />
+</div>
 {% csrf_token %}
-<input
-          type="text"
-          class="form-control mb-2"
-          placeholder="{{user.first_name}}"
-          name="fname"
-          id="fname"
-        />
+<div class="mb-2"><label class="form-label" for="fname">First Name</label>
+
+  <input
+            type="text"
+            class="form-control mb-2"
+            placeholder="{{user.first_name}}"
+            name="fname"
+            id="fname"
+  />
+</div>
+<div class="mb-2">
+<label class="form-label" for="fname">Last Name</label>
 <input
           type="text"
           class="form-control mb-2"
@@ -18,17 +33,22 @@
           name="lname"
           id="lname"
         />
-<input
+        </div>
+<div class="mb-4">
+<label class="form-label" for="fname">Bio</label>
+<textarea
           type="text"
-          class="form-control mb-2"
+          class="form-control mb-2"rows="5"
           placeholder="{{user.profile.bio}}"
           name="bio"
           id="bio"
-        />
-      
-<button type="submit" class="btn btn-secondary">Update</button>
-</form> 
-<a href="{%url 'deleteProfile'%}" class="btn btn-danger"">Delete Profile</a>
+          
+        ></textarea>
+</div>
+
+<button type="submit" class="btn btn-secondary me-2">Update</button>
+<a href="{%url 'deleteProfile'%}" class="btn btn-danger"">Delete account</a></form> 
+
 </div>
 
 </div>

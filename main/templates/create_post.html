@@ -1,5 +1,51 @@
 {% extends "base.html" %} {%load static%} {% block content %}
+<div class="d-flex px-4 pt-4 justify-content-center">
+  <div class="col-lg-7 mx-sm-5 px-sm-5">
+    <!-- Blog Entries Column -->
+    <div class="form card p-2 mb-4">
+      <form class="form" action="{%url 'profile'%}" method="post">
+        <h3 class="mb-2">Write a post</h3>
+        {% csrf_token %}
+        <div class="mb-2">
+          <label class="form-label" for="">Title</label>
 
-<h1>test</h1>
+          <input
+            type="text"
+            class="form-control mb-2"
+            placeholder="Title"
+            name="title"
+          />
+        </div>
+        <div class="mb-2">
+          <input
+            name="author"
+            type="hidden"
+            class="form-control mb-2"
+            value="{{user.username}}"
+          />
+        </div>
 
-{%endblock%}
+        <div class="mb-3">
+          <label class="form-label" for="fname">Body</label>
+          <textarea
+            type="text"
+            class="form-control mb-2"
+            rows="5"
+            placeholder="Write your post here, {{user.username}}!"
+            name="body"
+            id="body"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <select id="cars" name="cars">
+            <option value="Draft">Draft</option>
+            <option value="Publish">Publish</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-dark px-4 me-2">Post</button>
+      </form>
+    </div>
+  </div>
+  {%endblock%}
+</div>
